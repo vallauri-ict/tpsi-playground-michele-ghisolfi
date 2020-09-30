@@ -33,17 +33,29 @@ th{
     color: red;
 }
 
-#divLibroCorrente{
-    background-color: white;
+.dettagli{
+    background-color: whitesmoke;
     display: grid;
+    width: 400px !important;
     width: fit-content;
     grid-template-columns: 140px auto;
     grid-template-rows: 40px 40px 40px 40px 40px 40px;
+    /* grid-template-rows: 40px; */
 	grid-column-gap:5px;
     grid-row-gap:5px;
     margin: 10px auto;
     border: 1px solid black;
 }
-#divLibroCorrente > *{
+
+/* per ogini tag interno al contenitore che implementa
+la classe dettagli si assegna un altezza di 40px */
+.dettagli > *{
     line-height: 40px;
+    overflow: auto;
+}
+
+.pulsantiNavigazione{
+    margin: 10px auto;
+    width: 300px;
+    text-align: center;
 }
