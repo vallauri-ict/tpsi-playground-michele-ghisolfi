@@ -36,7 +36,7 @@ window.onload = function () {
     function creaIntestazioni(params) {
         let _tr = document.createElement("tr");
         _table.appendChild(_tr);
-        let intestazioni = ["title", "author", "category", "price"];
+        let intestazioni = ["title", "author", "category", "price", ""];
         for (let i = 0; i < intestazioni.length; i++) {
             const element = intestazioni[i];
             let _th = document.createElement("th");
@@ -46,7 +46,8 @@ window.onload = function () {
     }
 
     function caricaDati(params) {
-        for (const item of jsonVet) {
+        for (let i=0; i<jsonVet.length; i++) {
+            let item = jsonVet[i];
             let _tr = document.createElement("tr");
             _table.appendChild(_tr);
             let _td;
@@ -69,7 +70,23 @@ window.onload = function () {
             _td = document.createElement("td");
             _td.innerHTML = item.price;
             _tr.appendChild(_td);
+
+            // Creazione pulsante elimina
+            _td = document.createElement("td");
+            let _button = document.createElement("button");
+            _button.innerHTML = "ELIMINA";
+            _td.appendChild(_button);
+            _tr.appendChild(_td);
+            _button.addEventListener("click", eliminaRecord);
+            _button.recordDaEliminare=i;
         }
+    }
+
+    function eliminaRecord(params) {
+        let pos = this.recordDaEliminare;
+        jsonVet.splice(pos, 1);
+        localStorage.setItem("bookstore_json", JSON.stringify(jsonVet));
+        window.location.reload();
     }
 
     function visualizzDettagli(params) {
@@ -92,23 +109,22 @@ window.onload = function () {
 
     function creaPulsanti(params) {
         let _divPulsantiNavigazione = document.createElement("div");
-        _divPulsantiNavigazione.setAttribute("class", "pulsantiNavigazione");
+        _divPulsantiNavigazione.setAttribute("class", "contenitorePulsantiNavigazione");
         _body.appendChild(_divPulsantiNavigazione);
 
-        let nomiPulsanti = ["primo", "indietro", "avanti", "ultimo"];
+        let nomiPulsanti = ["primo", "indietro", "avanti", "ultimo", "aggiungi", "elimina per categoria"];
         for (const item of nomiPulsanti) {
             let _button = document.createElement("button");
-            _button.innerHTML = item;
             _button.id = item; /* Assegno come id il nome stesso del pulsante */
-            _button.style.padding = "5px 10px";
-            // _button.style.marginRight = "5px";
-            _button.addEventListener("click", navigazione); // funzione senza tonde
+            _button.setAttribute("class", "pulsantiNavigazione");
+            _button.addEventListener("click", gestionePulsanti); // funzione senza tonde
+            _button.innerHTML = item;
             _divPulsantiNavigazione.appendChild(_button);
         }
         document.getElementById("indietro").disabled = true;
     }
 
-    function navigazione(params) {
+    function gestionePulsanti(params) {
         let _btnIndietro = document.getElementById("indietro");
         let _btnAvanti = document.getElementById("avanti");
         switch (this.innerHTML) {
@@ -136,7 +152,27 @@ window.onload = function () {
                 _btnAvanti.disabled = true;
                 _btnIndietro.disabled = false;
                 break;
+            case "aggiungi":
+                // window.location.href = "pagina2.html";
+                window.open("pagina2.html");
+                break;
+            case "elimina per categoria":
+                let categoria = prompt("Inserisci la categoria da cencellare: ");
+                let qta = 0;
 
+                for (let i = jsonVet.length - 1; i >= 0; i--) {
+                    if (jsonVet[i].category == categoria) {
+                        jsonVet.splice(i, 1);
+                        qta++;
+                    }
+                }
+                if (qta > 0) {
+                    alert("Cancellati " + qta + " record");
+                    localStorage.setItem("bookstore_json", JSON.stringify(jsonVet));
+                    window.location.reload();
+                } else {
+                    alert("Nessun record trovato");
+                }
             default:
                 break;
         }
