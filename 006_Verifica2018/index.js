@@ -6,8 +6,6 @@ window.onload = function () {
     let _tbody = document.getElementById("tbody");
     let _lstNazioni = document.getElementById("lstNazioni");
     let _div = document.getElementById("dettagli")
-    
-    
 
     caricaListBox();
     caricaIntestazione();
@@ -33,30 +31,32 @@ window.onload = function () {
         _div.appendChild(_divMail)
         _divMail.innerHTML = item.email;
 
-        
+
         let _divCell = document.createElement("div");
         _div.appendChild(_divCell)
         _divCell.innerHTML = item.cell;
 
-        
+
         let _btnElimina = document.createElement("button");
         _div.appendChild(_btnElimina);
         _btnElimina.addEventListener("click", function name(params) {
-            eliminaUtente(item.login.uuid)
+            eliminaUtente(item.login.uuid, item.nat);
         });
         _btnElimina.innerHTML = "Elimina";
     }
 
-    function eliminaUtente(uuid) {
+    function eliminaUtente(uuid, nat) {
         console.log(uuid);
         for (let i = 0; i < json.results.length; i++) {
             const element = json.results[i];
-            if (uuid == json.results[i].login.uuid) {
+            if (uuid == element.login.uuid) {
                 json.results.splice(i, 1);
+                break;
             }
         }
         _div.innerHTML = "";
         caricaTabella();
+        caricaListBox();
     }
 
     function caricaTabella(params) {
@@ -104,7 +104,7 @@ window.onload = function () {
         }
     }
 
-    function caricaListBox() {
+    /* function caricaListBox() {
         let vetNat = json.results;
 
         vetNat.sort(function (record1, record2) {
@@ -125,6 +125,21 @@ window.onload = function () {
             }
             oldNat = item.nat;
         }
-    }
+    } */
 
+    function caricaListBox() {
+        _lstNazioni.innerHTML = "";
+        let vetNat = json.results;
+        let nazioni = [];
+        console.log(nazioni);
+
+        for (let i = 0; i < vetNat.length; i++) {
+            if (!nazioni.includes(vetNat[i].nat)) {
+                nazioni[i] = vetNat[i].nat;
+                let _opt = document.createElement("option");
+                _opt.innerHTML = vetNat[i].nat;
+                _lstNazioni.appendChild(_opt);
+            }
+        }
+    }
 }
