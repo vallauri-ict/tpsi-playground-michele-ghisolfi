@@ -1,0 +1,3 @@
+Realizzare una pagina index.html contenente i seguenti pulsanti: 
+ - **Crea Bookstore:**  Crea il bookstore come stringa xml e la salva nel localStorage 
+ - **Leggi e Visualizza:** 		File Legge il bookstore dal localStorage e lo carica all’interno di un oggetto xmlDoc Quindi scorre l’albero XML caricando dinamicamente ogni singolo record all’interno di una nuova riga in tabella a 6 campi (categoria, titolo, linguaggio, autori, anno, prezzo)	
