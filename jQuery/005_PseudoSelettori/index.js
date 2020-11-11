@@ -2,16 +2,40 @@ $(document).ready( function(){
 
 	let _ris = $("#txtRis");
 		
-	$("div:not('#wrapper'), p").click( function () {	
+	$("#wrapper div, #wrapper p").click( function () {	
 		_ris.empty();		
 		// Per ogni click richiamo 7 volte elabara() 
 		for(let i=1; i<=7; i++) 	
 		   elabara($(this), i);			
 		visualizza("-----------------------")	
-	   
+
+		// verifico se l'elemento corrente è di tipo package
+		if ($(this).is("p")) {
+			visualizza("Sono un tag p");
+		}
+		if ($(this).is("#blu, #rosso")) {
+			visualizza(`Sono l'elemento ${$(this).html()}`);
+		}
+
+		// if ($(this).html().includes("my Div")) {
+		if ($(this).is(":contains('my Div')")) {
+			visualizza("Il mio testo è my Div");
+		}
+
+		// if ($(this).is(":has('span')")) {
+		if ($(this).html().includes("<span")) {
+			visualizza("al mio interno c'è un tag span");
+		}
+
+		if ($(this).is(":last-child()")) {
+			visualizza("Sono l'ultimo filgio di wrapper");
+		}
+
+		if ($(this).is(":last-of-type()")) {
+			visualizza("Sono l'ultimo elemento del mio tipo all'interno di wrapper");
+		}
 
 	});
-
 
 	function elabara(box, i){
 		// 1 - i-esimo elemento generico 	
