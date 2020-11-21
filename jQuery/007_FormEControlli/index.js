@@ -80,16 +80,24 @@ function imposta(codice) {
             _form1.find("input[type=text]").first().val("Nuovo valore");
             break;
         case 2:
-            
+            _form1.find("select").first().prop("selectedIndex",1);
+            // oppure
+            _form1.find("select").first().children("option").eq(2).prop("selected", true);
             break;
         case 3:
-            
+            let _chks = _form1.children("fieldset").eq(0).find("input[type=checkbox]");
+            _chks.first().prop("checked", true);
+            _chks.eq(1).prop("checked", true);
+            _chks.val(["opzione 1", "opzione 3"]);
             break;
         case 4:
-            
+            _form1.children("fieldset").eq(1).find("input[type=radio]").eq(1).prop("checked", true);
             break;
         case 5:
-            
+            let _select = _form1.children("select").last();
+            _select.children("option").eq(1).prop("selected", true);
+            _select.children("option").eq(2).prop("selected", true);
+            _select.val(["2","3"]);
             break;
     
         default:
