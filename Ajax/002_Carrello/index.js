@@ -20,7 +20,7 @@ $(document).ready(function () {
     wrapper.on("mouseout", "img", function () {
         $(this).next().html("")
     })
-    
+
     wrapper.on("click", ".article", function () {
         details.html("")
         details.slideDown(1000)
@@ -40,7 +40,7 @@ $(document).ready(function () {
         $("<p>").appendTo(divInfo).text(elencoArticoli[id]["descrizione"])
         $("<p>").appendTo(divInfo).text(elencoArticoli[id]["prezzo"])
 
-        let btn =$("<button class='item-add'>").appendTo(details).text("Aggiungi al Carrello")
+        let btn = $("<button class='item-add'>").appendTo(details).text("Aggiungi al Carrello")
         btn.prop("nome", elencoArticoli[id]["nome"])
         btn.prop("prezzo", elencoArticoli[id]["prezzo"])
         btn.on("click", aggiungi)
@@ -48,17 +48,16 @@ $(document).ready(function () {
 
     let aperto = false
     $("#btnCarrello").on("click", function () {
-        if(aperto == false) {
+        if (aperto == false) {
             $("#carrello").slideDown(1000)
             $(this).html("&#708 Chiudi carrello")
-        }
-        else {
+        } else {
             $("#carrello").slideUp(1000)
             $(this).html("&#709 Apri carrello")
         }
         aperto = !aperto
     })
-    
+
     function aggiungi() {
         let table = $("#carrello table")
         let nome = $(this).prop("nome")
@@ -66,14 +65,14 @@ $(document).ready(function () {
         let trovato = false
 
         table.find("tr").each(function (i, ref) {
-            if($(ref).children("td").eq(0).html() == nome) {
+            if ($(ref).children("td").eq(0).html() == nome) {
                 $(ref).children("td").eq(2).text(parseInt($(ref).children("td").eq(2).text()) + 1)
                 trovato = true
                 return false
             }
         })
 
-        if(!trovato) {
+        if (!trovato) {
 
             let tr = $("<tr>").appendTo(table)
 
@@ -123,4 +122,3 @@ function errore(jqXHR, textStatus, str_error) {
     else
         alert("Server Error: " + jqXHR.status + " - " + jqXHR.responseText);
 }
-
