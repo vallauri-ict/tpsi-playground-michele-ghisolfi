@@ -43,7 +43,8 @@
     $totale = $nSi + $nNo + $nNs;
     echo("<h3> Risposte </h3>");
     echo("<p>SI: $nSi </br> NO: $nNo </br> Non so: $nNs </br></p>");
-    echo("<canvas id='myChart' width='400px' height='400'></canvas>");
+    echo("<div style='margin: 0 auto; width: 400px'>");
+    echo("<canvas id='myChart'></canvas></div>");
 
     echo("<script> creaDiagramma($nSi, $nNo, $nNs); </script>");
    

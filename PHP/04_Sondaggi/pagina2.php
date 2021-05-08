@@ -28,6 +28,9 @@
 				SELECT selezione le colonne
 			*/
 	$rs = _eseguiQuery($con, $sql)[0]; // restituisce un vettore enumerativo
+	if (isset($_COOKIE["sondaggio".$id]) && isset($_COOKIE["sondaggio".$id])) {
+		die("Non puoi votare una seconda vola il sondaggio .$rs[titolo]");
+	}
 
 	// step 4: visualizzazione dati
 	echo ("<h1> Sondaggio su : $rs[titolo] </h1>");
